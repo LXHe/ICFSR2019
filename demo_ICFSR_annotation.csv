@@ -1,0 +1,10 @@
+Variable_name,Annotation
+STAT,"Sarcopenia status ('Sar': Sarcopenic, 'N_Sar': Non-Sarcopenic)"
+PASE,Physical activity score for the elderly
+L_SPT,Light sport Activity - weekly
+M_SPT,Moderate sport activity - weekly
+S_SPT,Vigorous sport activity - weekly
+MSL_TRAIN,Muslce training - weekly
+L_HW,Light house work
+H_HW,Heavy house work
+SHperPB,Summed beta values of hypermethylated gene promoters
