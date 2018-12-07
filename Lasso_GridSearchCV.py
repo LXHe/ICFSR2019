@@ -72,17 +72,19 @@ cat_labels = ['L_HW','H_HW','Repairs','Yard','Gardening','Caring']
 
 # Create training and test sets
 # With independent varialbes of Age, BMI, general PASE and nutrients
-# Before running, 'PASE' should be included into Basic_info list
+# Before running, 'PASE' should be added into Basic_info list
 X_train, X_test, y_train, y_test = preprocess_data(
     Dataset=raw_ntr, Basic_label=Basic_info, 
-    Nutrient_label=Nutrients, Target_label=Target)
+    Num_label=Nutrients, Target_label=Target
+    )
 
 # Create other training and test sets based on research purposes
 # With independent varialbes of Age, BMI, subcategories of physical activity and nutrients
 X_train, X_test, y_train, y_test = preprocess_data(
     Dataset=raw_ntr, Basic_label=Basic_info, 
     Num_label=Num_join_labels, Cat_pase_label=cat_labels,
-    Target_label=Target)
+    Target_label=Target
+    )
 =========================================================================================================================================
 # Evaluate how will the fold of cross-validation affect training and prediction score
 # Choose the n_folds with the best training and prediction score
