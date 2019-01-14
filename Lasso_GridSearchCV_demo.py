@@ -1,4 +1,3 @@
-#%%
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -8,7 +7,7 @@ import matplotlib.pyplot as plt
 
 raw_ntr = pd.read_csv('demo_ICFSR.csv')
 raw_ntr.set_index(['STAT','Sample_Name'], inplace=True)
-#%%
+
 # Define a function for dummy variable creating and train-test splitting
 # Convert data type
 cvt_cat = lambda x: x.astype('category')
@@ -56,7 +55,7 @@ def preprocess_data(
         X_test_analyse = X_test_numeric_df
         
     return X_train_analyse, X_test_analyse, y_train, y_test
-#%%
+
 # Create variable labels
 Basic_info = ['Age', 'BMI']
 Target = ['SHperPB']
@@ -65,21 +64,20 @@ Num_pase_labels = ['walking', 'L_SPT', 'M_SPT', 'S_SPT', 'MSL_TRAIN']
 Num_join_labels = Nutrients + Num_pase_labels
 cat_labels = ['L_HW','H_HW','Repairs','Yard','Gardening','Caring']
 
-#%%
 # Create training and test sets
 # With independent varialbes of Age, BMI, general PASE and nutrients
 # Before running, 'PASE' should be included into Basic_info list
 X_train, X_test, y_train, y_test = preprocess_data(
     Dataset=raw_ntr, ID_num_label=Basic_info+Nutrients, Target_label=Target
 )
-#%%
+
 # Create training and test sets
 # With independent varialbes of Age, BMI, subcategories of physical activity and nutrients
 X_train, X_test, y_train, y_test = preprocess_data(
     Dataset=raw_ntr, ID_num_label=Basic_info+Num_join_labels, 
     ID_cat_label=cat_labels, Target_label=Target
 )
-#%%
+
 # =============================================================================
 # Evaluate how will the fold of cross-validation affect training and prediction score
 # Choose the n_folds with the best training and prediction score
@@ -105,15 +103,15 @@ df_sum = pd.DataFrame(
     columns=['fold number', 'best alpha', 'best train score', 'prediction score']
     )
 
-#%%
 # Use the decided n_folds
 n_folds = 3
 clf_best = GridSearchCV(lasso, tuned_para, cv=n_folds)
 clf_best.fit(X_train, y_train)
 best_est = clf_best.best_estimator_
 
-#%%
+# =============================================================================
 # Plot hyperparameter tuning
+# =============================================================================
 scores = clf_best.cv_results_['mean_test_score']
 scores_std = clf_best.cv_results_['std_test_score']
 std_error = scores_std/np.sqrt(n_folds)
@@ -146,7 +144,6 @@ ax.set_title(
     )
 plt.show()
 
-#%%
 # Complete regression function
 df_coef = pd.DataFrame()
 df_coef['Feature Name']=  np.append(X_train.columns.values, 'intercept')
